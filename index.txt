@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eight Class | 부산 2030 청년 성장형 갭이어 Eight Class</title>
-    <!-- Tailwind CSS -->
+    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter & Noto Sans KR & Outfit -->
+    
+    <!-- Google Fonts: Noto Sans KR & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
@@ -42,13 +45,10 @@
             }
         };
 
-        // Smart image error handler (Multi-Extension & Multi-Path Auto Search)
+        /* Smart image error handler (Multi-Extension & Multi-Path Search) */
         function handleImgError(img, fileName, sampleFallback) {
             if (!img.dataset.tryIndex) {
-                // Extract base name without path and extension
                 let baseName = fileName.replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "");
-                
-                // Build candidate paths list (.jpg, .png, .jpeg, uppercase, root & subfolder)
                 img.dataset.candidates = JSON.stringify([
                     `Eight Class/${baseName}.jpg`,
                     `Eight Class/${baseName}.png`,
@@ -73,7 +73,7 @@
                 img.src = candidates[tryIndex];
             } else if (!img.dataset.triedSample) {
                 img.dataset.triedSample = "true";
-                img.onerror = null; // Prevent infinite error loop
+                img.onerror = null;
                 if (sampleFallback) {
                     img.src = sampleFallback;
                 }
@@ -82,6 +82,7 @@
             }
         }
     </script>
+
     <style>
         body {
             font-family: 'Noto Sans KR', sans-serif;
@@ -186,7 +187,7 @@
             border-radius: 9999px;
         }
 
-        /* Custom subtle scrollbar */
+        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -204,11 +205,10 @@
 </head>
 <body class="antialiased selection:bg-pantone-325 selection:text-baseblue-900 relative">
 
-    <!-- Ambient background glows -->
+    <!-- Ambient background glowing elements -->
     <div class="ambient-orb-1"></div>
     <div class="ambient-orb-2"></div>
 
-    <!-- Header / Navbar -->
     <header class="sticky top-0 z-40 w-full glass-header transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <!-- Brand Logo -->
@@ -228,6 +228,7 @@
                 <a href="#programs" class="hover:text-pantone-500 transition-colors duration-200">교육 과정</a>
                 <a href="#instructors" class="hover:text-pantone-500 transition-colors duration-200">함께하는 분들</a>
                 <a href="#benefits" class="hover:text-pantone-500 transition-colors duration-200">수강후기</a>
+                <a href="#faq" class="hover:text-pantone-500 transition-colors duration-200">자주 묻는 질문</a>
                 <button onclick="openApplyModal('상담 및 수강 문의')" class="hover:text-pantone-500 transition-colors duration-200">문의하기</button>
             </nav>
 
@@ -240,51 +241,54 @@
             </div>
 
             <!-- Mobile Hamburger Button -->
-            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-baseblue-500 hover:text-pantone-500 hover:bg-white/60 transition-colors">
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg text-baseblue-500 hover:text-pantone-500 hover:bg-white/60 transition-colors" aria-label="메뉴 열기">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
 
         <!-- Mobile Navigation Menu Dropdown -->
         <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-2xl border-b border-white/80 px-4 pt-2 pb-6 space-y-3 shadow-xl">
-            <a href="#about" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">Eight Class 소개</a>
-            <a href="#programs" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">교육 과정</a>
-            <a href="#instructors" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">함께하는 분들</a>
-            <a href="#benefits" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">감동적인 수강후기</a>
-            <button onclick="openApplyModal('상담 및 수강 문의')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">문의하기</button>
-            <button onclick="openApplyModal('2026 Eight Class 기수 참여')" class="w-full mt-2 px-5 py-3 rounded-xl bg-baseblue-500 text-white font-bold text-center shadow-md">
+            <a href="#about" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">Eight Class 소개</a>
+            <a href="#programs" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">교육 과정</a>
+            <a href="#instructors" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">함께하는 분들</a>
+            <a href="#benefits" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">감동적인 수강후기</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">자주 묻는 질문</a>
+            <button onclick="toggleMobileMenu(); openApplyModal('상담 및 수강 문의')" class="block w-full text-left px-3 py-2 rounded-md font-medium text-baseblue-500 hover:bg-pantone-light">문의하기</button>
+            <button onclick="toggleMobileMenu(); openApplyModal('2026 Eight Class 기수 참여')" class="w-full mt-2 px-5 py-3 rounded-xl bg-baseblue-500 text-white font-bold text-center shadow-md">
                 수강 신청하기
             </button>
         </div>
     </header>
 
-    <!-- Hero Banner Section -->
     <section id="about" class="relative overflow-hidden bg-hero-glass pt-10 pb-20 lg:pt-16 lg:pb-28 border-b border-white/60 z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
                 
-                <!-- Left Text Content -->
+                <!-- Left Content Area -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left flex flex-col justify-between">
                     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/85 backdrop-blur-md text-baseblue-500 text-xs sm:text-sm font-bold border border-white/90 shadow-sm self-center lg:self-start">
                         <span class="w-2.5 h-2.5 rounded-full bg-pantone-500 animate-ping"></span>
                         부산 거주 만 19세 ~ 39세 청년 전용
                     </div>
                     
-                    <!-- 메인 포스터 사진 영역 (Smart Image Loading) -->
-                    <div class="w-full aspect-[16/9] rounded-3xl glass-card overflow-hidden relative group my-2 border border-white/90 transition-all duration-500 hover:shadow-2xl hover:border-white p-3 sm:p-4 bg-white/40">
+                    <!-- Main Poster Image Container -->
+                    <div class="w-full aspect-[16/9] rounded-3xl glass-card overflow-hidden relative group my-2 border border-white/90 transition-all duration-500 hover:shadow-2xl hover:border-white p-3 sm:p-4 bg-white/40 cursor-pointer" onclick="openLightbox('Eight Class/1.png', 'Eight Class 메인 포스터')">
                         <img src="Eight Class/1.png" 
                             alt="Eight Class 메인 포스터"
                             class="w-full h-full object-cover object-top rounded-2xl transition-transform duration-500 group-hover:scale-102"
                             onerror="handleImgError(this, '1.jpg', 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=80')"
                         >
+                        <div class="absolute inset-0 bg-baseblue-900/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center">
+                            <span class="bg-white/90 text-baseblue-500 text-xs font-bold px-3 py-1.5 rounded-full shadow-md"><i class="fa-solid fa-expand mr-1"></i> 크게 보기</span>
+                        </div>
                     </div>
 
-                    <!-- 핵심 카피 및 일정 -->
+                    <!-- Core Headline & Schedule -->
                     <div class="space-y-4 py-1 text-center lg:text-left">
                         <div>
                             <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-white text-baseblue-600 font-sans font-bold text-xs sm:text-sm shadow-sm">
                                 <i class="fa-regular fa-calendar-check text-pantone-500 text-base"></i>
-                                <span class="tracking-tight text-baseblue-500 font-bold">2026년 08월 10일 월요일</span>
+                                <span class="tracking-tight text-baseblue-500 font-bold">2026년 08월 10일 월요일 개강</span>
                             </div>
                         </div>
 
@@ -297,7 +301,7 @@
                         </p>
                     </div>
                     
-                    <!-- CTA Buttons -->
+                    <!-- Action CTA Buttons -->
                     <div class="pt-1 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                         <button onclick="openApplyModal('2026 Eight Class 기수 참여')" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-baseblue-500 hover:bg-baseblue-600 text-white font-bold text-base shadow-lg shadow-baseblue-500/25 hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
                             <span>2026 기수 모집 신청</span>
@@ -308,7 +312,7 @@
                         </a>
                     </div>
 
-                    <!-- Trust Metrics Badge -->
+                    <!-- Key Metrics -->
                     <div class="pt-6 border-t border-baseblue-900/15 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center lg:text-left max-w-xl mx-auto lg:mx-0">
                         <div class="flex flex-col items-center lg:items-start justify-center">
                             <p class="text-2xl sm:text-3xl font-black font-outfit text-baseblue-900 tracking-tight drop-shadow-sm">2030대</p>
@@ -321,7 +325,7 @@
                             <p class="text-xs sm:text-sm text-baseblue-800 font-extrabold tracking-tight mt-1">수강 만족도</p>
                         </div>
                         <div class="flex flex-col items-center lg:items-start justify-center">
-                            <p class="text-2xl sm:text-3xl font-black font-outfit text-baseblue-900 tracking-tight drop-shadow-sm">1023+</p>
+                            <p class="text-2xl sm:text-3xl font-black font-outfit text-baseblue-900 tracking-tight drop-shadow-sm">1,023+</p>
                             <p class="text-xs sm:text-sm text-baseblue-800 font-extrabold tracking-tight mt-1">함께한 청년 수</p>
                         </div>
                         <div class="flex flex-col items-center lg:items-start justify-center">
@@ -339,8 +343,8 @@
                             <div class="absolute -left-10 -bottom-10 w-64 h-64 bg-black/20 rounded-full blur-2xl"></div>
 
                             <div class="relative z-10 flex justify-between items-start">
-                                <span class="bg-white/15 backdrop-blur-md px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider border border-white/20 text-pantone-325">BUSAN YOUTH</span>
-                                <i class="fa-solid fa-sparkles text-2xl sm:text-3xl text-pantone-325"></i>
+                                <span class="bg-white/15 backdrop-blur-md px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wider border border-white/20 text-pantone-325">About Eight Class</span>
+                                <i class="fa-solid fa-sparkles text-2xl sm:text-3xl text-pantone-325 animate-pulse"></i>
                             </div>
 
                             <div class="relative z-10 space-y-4 my-auto py-6">
@@ -348,9 +352,18 @@
                                 <h3 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold leading-snug">
                                     "나의 무한한 가능성을 발견하는<br/>성장형 Gap Year Project"
                                 </h3>
-                                <p class="text-baseblue-100 text-sm sm:text-base">
-                                    부산시내 거주하는 2030 청년을 위한 Eight Class
-                                </p>
+                                
+                                <div class="space-y-3 pt-2 text-baseblue-100 border-t border-white/15">
+                                    <p class="text-pantone-325 font-bold text-base sm:text-lg leading-snug">
+                                        당신의 가능성을 발견하고<br class="hidden sm:inline"/> 진짜 나를 찾는 시간
+                                    </p>
+                                    <p class="text-xs sm:text-sm leading-relaxed opacity-90">
+                                        이어센터 '에이트 클래스'는 내면의 본질적인 가치를 발견하고 스스로의 삶을 주도적으로 설계할 수 있도록 돕는 프로그램입니다.
+                                    </p>
+                                    <p class="text-xs sm:text-sm leading-relaxed opacity-90">
+                                        내부의 뿌리부터 단단하게 하는 심리상담부터 브랜딩까지, 각 분야 전문가들이 청년들의 고민에 깊이 공감하며 긍정적인 변화의 시작을 끝까지 함께합니다.
+                                    </p>
+                                </div>
                             </div>
 
                             <div class="relative z-10 pt-4 border-t border-white/20 flex items-center justify-between text-xs sm:text-sm text-baseblue-100">
@@ -365,7 +378,6 @@
         </div>
     </section>
 
-    <!-- Programs Section -->
     <section id="programs" class="py-20 bg-white/40 backdrop-blur-md border-y border-white/60 z-10 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 border-b border-baseblue-500/15 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -378,174 +390,173 @@
                     </h2>
                 </div>
                 <p class="text-xs sm:text-sm text-baseblue-500/80 font-medium leading-relaxed">
-                  Eight Classmate를 위한 4가지 핵심 프로그램
-            </p>
-        </div>
+                    Eight Classmate를 위한 4가지 핵심 프로그램
+                </p>
+            </div>
             
-        <!-- Program Card Grid (2x2 Grid Layout for Larger Photo Cards) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="program-grid">
-            
-            <!-- Program Card 1 -->
-            <div class="program-card glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8">
-                <div class="space-y-6">
-                    <div>
-                        <span class="inline-block bg-baseblue-500 text-pantone-325 text-xs font-bold px-3 py-1 rounded-full shadow-sm mb-3">PART 01</span>
-                        <div class="flex items-center text-xs text-pantone-500 font-semibold gap-2 mb-1">
-                            <i class="fa-solid fa-chalkboard-user text-pantone-500"></i>
-                            <span>전문가 직강</span>
+            <!-- Program Card Grid (2x2 Grid) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="program-grid">
+                
+                <!-- Program Card 1 -->
+                <div class="program-card glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8">
+                    <div class="space-y-6">
+                        <div>
+                            <span class="inline-block bg-baseblue-500 text-pantone-325 text-xs font-bold px-3 py-1 rounded-full shadow-sm mb-3">PART 01</span>
+                            <div class="flex items-center text-xs text-pantone-500 font-semibold gap-2 mb-1">
+                                <i class="fa-solid fa-chalkboard-user text-pantone-500"></i>
+                                <span>전문가 직강</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-baseblue-500 transition-colors">
+                                강사님의 명쾌한 강의
+                            </h3>
+                            <p class="text-sm text-baseblue-500/80 mt-2 leading-relaxed">
+                                답없는 질문 속에 명쾌한 답을 가진 기준을 가지고 삶과 나 자신을 찾아가는 명쾌한 강연의 시간.
+                            </p>
                         </div>
-                        <h3 class="text-2xl font-bold text-baseblue-500 transition-colors">
-                            강사님의 명쾌한 강의
-                        </h3>
-                        <p class="text-sm text-baseblue-500/80 mt-2 leading-relaxed">
-                            답없는 질문 속에 명쾌한 답을 가진 기준을 가지고 삶과 나 자신을 찾아가는 명쾌한 강연의 시간.
-                        </p>
-                    </div>
 
-                    <div class="space-y-3 pt-4 border-t border-baseblue-100">
-                        <span class="text-xs font-semibold text-baseblue-500/70 flex items-center justify-between">
-                            <span><i class="fa-regular fa-images text-pantone-500 mr-1"></i> 프로그램 현장 스케치</span>
-                        </span>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/강의.jpg" alt="강의 현장 1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '강의.jpg', 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/강의2.jpg" alt="강의 현장 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '강의2.jpg', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/강의3.jpg" alt="강의 현장 3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '강의3.jpg', 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/강의4.jpg" alt="강의 현장 4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '강의4.jpg', 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Program Card 2 -->
-            <div class="program-card glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8">
-                <div class="space-y-6">
-                    <div>
-                        <span class="inline-block bg-baseblue-500 text-pantone-325 text-xs font-bold px-3 py-1 rounded-full shadow-sm mb-3">PART 02</span>
-                        <div class="flex items-center text-xs text-pantone-500 font-semibold gap-2 mb-1">
-                            <i class="fa-solid fa-compass text-pantone-500"></i>
-                            <span>실습 & 체험</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-baseblue-500 transition-colors">
-                            다양한 현장 체험
-                        </h3>
-                        <p class="text-sm text-baseblue-500/80 mt-2 leading-relaxed">
-                            이론을 넘어 직접 경험하고 체득하는 다채로운 현장 체험과 실습 워크숍 프로그램.
-                        </p>
-                    </div>
-
-                    <div class="space-y-3 pt-4 border-t border-baseblue-100">
-                        <span class="text-xs font-semibold text-baseblue-500/70 flex items-center justify-between">
-                            <span><i class="fa-regular fa-images text-pantone-500 mr-1"></i> 현장 체험 스케치</span>
-                        </span>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/체험.jpg" alt="체험 현장 1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '체험.jpg', 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/체험2.jpg" alt="체험 현장 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '체험2.jpg', 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/체험3.jpg" alt="체험 현장 3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '체험3.jpg', 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/체험4.jpg" alt="체험 현장 4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '체험4.jpg', 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80')">
+                        <div class="space-y-3 pt-4 border-t border-baseblue-100">
+                            <span class="text-xs font-semibold text-baseblue-500/70 flex items-center justify-between">
+                                <span><i class="fa-regular fa-images text-pantone-500 mr-1"></i> 프로그램 현장 스케치</span>
+                            </span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/강의.jpg', '강의 현장 1')">
+                                    <img src="Eight Class/강의.jpg" alt="강의 현장 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '강의.jpg', 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/강의2.jpg', '강의 현장 2')">
+                                    <img src="Eight Class/강의2.jpg" alt="강의 현장 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '강의2.jpg', 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/강의3.jpg', '강의 현장 3')">
+                                    <img src="Eight Class/강의3.jpg" alt="강의 현장 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '강의3.jpg', 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/강의4.jpg', '강의 현장 4')">
+                                    <img src="Eight Class/강의4.jpg" alt="강의 현장 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '강의4.jpg', 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80')">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Program Card 3 -->
-            <div class="program-card glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8">
-                <div class="space-y-6">
-                    <div>
-                        <span class="inline-block bg-baseblue-500 text-pantone-325 text-xs font-bold px-3 py-1 rounded-full shadow-sm mb-3">PART 03</span>
-                        <div class="flex items-center text-xs text-pantone-500 font-semibold gap-2 mb-1">
-                            <i class="fa-solid fa-people-group text-pantone-500"></i>
-                            <span>네트워킹</span>
+                <!-- Program Card 2 -->
+                <div class="program-card glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8">
+                    <div class="space-y-6">
+                        <div>
+                            <span class="inline-block bg-baseblue-500 text-pantone-325 text-xs font-bold px-3 py-1 rounded-full shadow-sm mb-3">PART 02</span>
+                            <div class="flex items-center text-xs text-pantone-500 font-semibold gap-2 mb-1">
+                                <i class="fa-solid fa-compass text-pantone-500"></i>
+                                <span>실습 & 체험</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-baseblue-500 transition-colors">
+                                다양한 현장 체험
+                            </h3>
+                            <p class="text-sm text-baseblue-500/80 mt-2 leading-relaxed">
+                                이론을 넘어 직접 경험하고 체득하는 다채로운 현장 체험과 실습 워크숍 프로그램.
+                            </p>
                         </div>
-                        <h3 class="text-2xl font-bold text-baseblue-500 transition-colors">
-                            소규모 활동 프로그램
-                        </h3>
-                        <p class="text-sm text-baseblue-500/80 mt-2 leading-relaxed">
-                            삶의 가장 기본적인 요건 중에 내가 원하는 작고 소중한 삶 함께하는 기쁨
-                        </p>
-                    </div>
 
-                    <div class="space-y-3 pt-4 border-t border-baseblue-100">
-                        <span class="text-xs font-semibold text-baseblue-500/70 flex items-center justify-between">
-                            <span><i class="fa-regular fa-images text-pantone-500 mr-1"></i> 소모임 및 네트워킹</span>
-                        </span>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/활동.jpg" alt="네트워킹 1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '활동.jpg', 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/활동2.jpg" alt="네트워킹 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '활동2.jpg', 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/활동3.jpg" alt="네트워킹 3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '활동3.jpg', 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/활동4.jpg" alt="네트워킹 4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '활동4.jpg', 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Program Card 4 -->
-            <div class="program-card glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8">
-                <div class="space-y-6">
-                    <div>
-                        <span class="inline-block bg-baseblue-500 text-pantone-325 text-xs font-bold px-3 py-1 rounded-full shadow-sm mb-3">PART 04</span>
-                        <div class="flex items-center text-xs text-pantone-500 font-semibold gap-2 mb-1">
-                            <i class="fa-solid fa-lightbulb text-pantone-500"></i>
-                            <span>자기탐구 & 나눔</span>
-                        </div>
-                        <h3 class="text-2xl font-bold text-baseblue-500 transition-colors">
-                            탐구와 나눔을 통한 성장
-                        </h3>
-                        <p class="text-sm text-baseblue-500/80 mt-2 leading-relaxed">
-                            일방적인 강연과 주입식 교육이 아닌 나눔과 질문 소통과 생각을 통한 나의 깨달음을 얻는 시간
-                        </p>
-                    </div>
-
-                    <div class="space-y-3 pt-4 border-t border-baseblue-100">
-                        <span class="text-xs font-semibold text-baseblue-500/70 flex items-center justify-between">
-                            <span><i class="fa-regular fa-images text-pantone-500 mr-1"></i> 나눔 워크숍</span>
-                        </span>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/나눔.jpg" alt="워크숍 1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '나눔.jpg', 'https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/나눔2.jpg" alt="워크숍 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '나눔2.jpg', 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/나눔3.jpg" alt="워크숍 3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '나눔3.jpg', 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80')">
-                            </div>
-                            <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm">
-                                <img src="Eight Class/나눔4.jpg" alt="워크숍 4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '나눔4.jpg', 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80')">
+                        <div class="space-y-3 pt-4 border-t border-baseblue-100">
+                            <span class="text-xs font-semibold text-baseblue-500/70 flex items-center justify-between">
+                                <span><i class="fa-regular fa-images text-pantone-500 mr-1"></i> 현장 체험 스케치</span>
+                            </span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/체험.jpg', '체험 현장 1')">
+                                    <img src="Eight Class/체험.jpg" alt="체험 현장 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '체험.jpg', 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/체험2.jpg', '체험 현장 2')">
+                                    <img src="Eight Class/체험2.jpg" alt="체험 현장 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '체험2.jpg', 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/체험3.jpg', '체험 현장 3')">
+                                    <img src="Eight Class/체험3.jpg" alt="체험 현장 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '체험3.jpg', 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/체험4.jpg', '체험 현장 4')">
+                                    <img src="Eight Class/체험4.jpg" alt="체험 현장 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '체험4.jpg', 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80')">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <!-- Program Card 3 -->
+                <div class="program-card glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8">
+                    <div class="space-y-6">
+                        <div>
+                            <span class="inline-block bg-baseblue-500 text-pantone-325 text-xs font-bold px-3 py-1 rounded-full shadow-sm mb-3">PART 03</span>
+                            <div class="flex items-center text-xs text-pantone-500 font-semibold gap-2 mb-1">
+                                <i class="fa-solid fa-people-group text-pantone-500"></i>
+                                <span>네트워킹</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-baseblue-500 transition-colors">
+                                소규모 활동 프로그램
+                            </h3>
+                            <p class="text-sm text-baseblue-500/80 mt-2 leading-relaxed">
+                                삶의 가장 기본적인 요건 중에 내가 원하는 작고 소중한 삶 함께하는 기쁨.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3 pt-4 border-t border-baseblue-100">
+                            <span class="text-xs font-semibold text-baseblue-500/70 flex items-center justify-between">
+                                <span><i class="fa-regular fa-images text-pantone-500 mr-1"></i> 소모임 및 네트워킹</span>
+                            </span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/활동.jpg', '네트워킹 1')">
+                                    <img src="Eight Class/활동.jpg" alt="네트워킹 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '활동.jpg', 'https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/활동2.jpg', '네트워킹 2')">
+                                    <img src="Eight Class/활동2.jpg" alt="네트워킹 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '활동2.jpg', 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/활동3.jpg', '네트워킹 3')">
+                                    <img src="Eight Class/활동3.jpg" alt="네트워킹 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '활동3.jpg', 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/활동4.jpg', '네트워킹 4')">
+                                    <img src="Eight Class/활동4.jpg" alt="네트워킹 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '활동4.jpg', 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Program Card 4 -->
+                <div class="program-card glass-card glass-card-hover rounded-2xl overflow-hidden flex flex-col justify-between p-6 sm:p-8">
+                    <div class="space-y-6">
+                        <div>
+                            <span class="inline-block bg-baseblue-500 text-pantone-325 text-xs font-bold px-3 py-1 rounded-full shadow-sm mb-3">PART 04</span>
+                            <div class="flex items-center text-xs text-pantone-500 font-semibold gap-2 mb-1">
+                                <i class="fa-solid fa-lightbulb text-pantone-500"></i>
+                                <span>자기탐구 & 나눔</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-baseblue-500 transition-colors">
+                                탐구와 나눔을 통한 성장
+                            </h3>
+                            <p class="text-sm text-baseblue-500/80 mt-2 leading-relaxed">
+                                일방적인 강연과 주입식 교육이 아닌 나눔과 질문, 소통과 생각을 통한 나의 깨달음을 얻는 시간.
+                            </p>
+                        </div>
+
+                        <div class="space-y-3 pt-4 border-t border-baseblue-100">
+                            <span class="text-xs font-semibold text-baseblue-500/70 flex items-center justify-between">
+                                <span><i class="fa-regular fa-images text-pantone-500 mr-1"></i> 나눔 워크숍</span>
+                            </span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/나눔.jpg', '워크숍 1')">
+                                    <img src="Eight Class/나눔.jpg" alt="워크숍 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '나눔.jpg', 'https://images.unsplash.com/photo-1531545514256-b1400bc00f31?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/나눔2.jpg', '워크숍 2')">
+                                    <img src="Eight Class/나눔2.jpg" alt="워크숍 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '나눔2.jpg', 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/나눔3.jpg', '워크숍 3')">
+                                    <img src="Eight Class/나눔3.jpg" alt="워크숍 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '나눔3.jpg', 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                                <div class="relative aspect-[16/10] rounded-xl overflow-hidden bg-slate-100 border border-baseblue-200/80 shadow-sm cursor-pointer group" onclick="openLightbox('Eight Class/나눔4.jpg', '워크숍 4')">
+                                    <img src="Eight Class/나눔4.jpg" alt="워크숍 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '나눔4.jpg', 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80')">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-    <!-- Instructors / Team Section -->
     <section id="instructors" class="py-20 bg-white/30 backdrop-blur-md border-b border-white/60 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 border-b border-baseblue-500/15 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -562,12 +573,12 @@
                 </p>
             </div>
 
-            <!-- Main Mentor -->
+            <!-- Main Mentor Profile -->
             <div class="mb-12">
                 <div class="glass-card rounded-3xl p-6 sm:p-8 flex flex-col lg:flex-row items-center gap-8 shadow-xl">
                     <!-- Photo Slot -->
                     <div class="w-full sm:w-64 h-64 sm:h-72 rounded-2xl bg-white/80 border border-pantone-325 flex items-center justify-center shrink-0 relative overflow-hidden shadow-md group">
-                        <img src="Eight Class/정승환.jpg" alt="메인 멘토 정승환" class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '정승환.jpg', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80')">
+                        <img src="Eight Class/정승환.jpg" alt="메인 멘토 정승환" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300" onerror="handleImgError(this, '정승환.jpg', 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80')">
                     </div>
                     <!-- Info Slot -->
                     <div class="flex-1 space-y-4 text-center lg:text-left">
@@ -619,7 +630,7 @@
                         <h4 class="text-base font-bold text-baseblue-500">최재웅</h4>
                         <p class="text-xs text-pantone-500 font-semibold mt-0.5 mb-2">결과를 만드는 확실한 변화</p>
                         <p class="text-xs text-baseblue-500/70 leading-normal">
-                            청년 상담 및 1:1 도약 코칭 케어 
+                            청년 상담 및 1:1 도약 코칭 케어
                         </p>
                     </div>
 
@@ -645,7 +656,7 @@
                         <h4 class="text-base font-bold text-baseblue-500">진혜원</h4>
                         <p class="text-xs text-pantone-500 font-semibold mt-0.5 mb-2">가능성을 현실로 만드는</p>
                         <p class="text-xs text-baseblue-500/70 leading-normal">
-                            1:1 공감형 코칭 및 케어 
+                            1:1 공감형 코칭 및 케어
                         </p>
                     </div>
                 </div>
@@ -654,7 +665,6 @@
         </div>
     </section>
 
-    <!-- Reviews / Testimonials Section -->
     <section id="benefits" class="py-20 bg-white/40 backdrop-blur-md border-b border-white/60 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 border-b border-baseblue-500/15 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -808,7 +818,66 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <section id="faq" class="py-20 bg-white/30 backdrop-blur-md border-b border-white/60 relative z-10">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-baseblue-600 font-outfit font-bold tracking-widest text-xs sm:text-sm uppercase block mb-1">
+                    FAQ
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-baseblue-500 tracking-tight">
+                    자주 묻는 질문
+                </h2>
+                <p class="text-xs sm:text-sm text-baseblue-500/80 font-medium mt-2">
+                    Eight Class 지원 및 진행에 관해 궁금한 점들을 모았습니다.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="glass-card rounded-2xl overflow-hidden border border-white">
+                    <button onclick="toggleFaq(1)" class="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-baseblue-500 hover:text-pantone-500 transition-colors">
+                        <span class="flex items-center gap-3 text-sm sm:text-base">
+                            <span class="w-6 h-6 rounded-full bg-pantone-light text-pantone-500 text-xs flex items-center justify-center font-extrabold shrink-0 border border-pantone-325">Q1</span>
+                            참가 자격 요건은 어떻게 되나요?
+                        </span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-pantone-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-1" class="hidden px-6 pb-6 pt-0 text-xs sm:text-sm text-baseblue-500/80 leading-relaxed border-t border-baseblue-100/50">
+                        부산광역시에 거주하거나 부산 소재 대학/기업에 재학·재직 중인 만 19세 이상 39세 이하의 청나라면 누구나 신청 가능합니다.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="glass-card rounded-2xl overflow-hidden border border-white">
+                    <button onclick="toggleFaq(2)" class="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-baseblue-500 hover:text-pantone-500 transition-colors">
+                        <span class="flex items-center gap-3 text-sm sm:text-base">
+                            <span class="w-6 h-6 rounded-full bg-pantone-light text-pantone-500 text-xs flex items-center justify-center font-extrabold shrink-0 border border-pantone-325">Q2</span>
+                            수강료 및 참가비용이 전혀 없나요?
+                        </span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-pantone-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-2" class="hidden px-6 pb-6 pt-0 text-xs sm:text-sm text-baseblue-500/80 leading-relaxed border-t border-baseblue-100/50">
+                        네, Eight Class는 부산 청년 성장을 지원하기 위해 수강료가 100% 무료 지원됩니다.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="glass-card rounded-2xl overflow-hidden border border-white">
+                    <button onclick="toggleFaq(3)" class="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-baseblue-500 hover:text-pantone-500 transition-colors">
+                        <span class="flex items-center gap-3 text-sm sm:text-base">
+                            <span class="w-6 h-6 rounded-full bg-pantone-light text-pantone-500 text-xs flex items-center justify-center font-extrabold shrink-0 border border-pantone-325">Q3</span>
+                            교육 장소는 어디인가요?
+                        </span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-pantone-500 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-answer-3" class="hidden px-6 pb-6 pt-0 text-xs sm:text-sm text-baseblue-500/80 leading-relaxed border-t border-baseblue-100/50">
+                        부산광역시 부산진구 범천동 948-4 (범내골역 8번 출구 인근) Eight Class 메인 교육관 및 지정 현장 체험처에서 진행됩니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="bg-baseblue-900 text-slate-300 text-xs py-12 border-t border-baseblue-800 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
@@ -833,7 +902,7 @@
     <div id="apply-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-baseblue-900/60 backdrop-blur-md p-4">
         <div class="bg-white/95 backdrop-blur-2xl rounded-3xl max-w-md w-full p-6 sm:p-8 space-y-6 relative shadow-2xl border border-white transform transition-all scale-95 opacity-0" id="modal-card">
             
-            <button onclick="closeApplyModal()" class="absolute top-6 right-6 text-baseblue-400 hover:text-baseblue-600 transition-colors">
+            <button onclick="closeApplyModal()" class="absolute top-6 right-6 text-baseblue-400 hover:text-baseblue-600 transition-colors" aria-label="모달 닫기">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
 
@@ -883,22 +952,38 @@
         </div>
     </div>
 
-    <!-- Notification Toast -->
+    <!-- Image Lightbox Preview Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-baseblue-900/80 backdrop-blur-lg p-4" onclick="closeLightbox()">
+        <div class="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+            <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-pantone-325 transition-colors text-2xl font-bold">
+                <i class="fa-solid fa-xmark"></i> 닫기
+            </button>
+            <img id="lightbox-img" src="" alt="확대 이미지" class="max-w-full max-h-[80vh] rounded-2xl shadow-2xl object-contain border border-white/20">
+            <p id="lightbox-caption" class="text-white text-sm font-bold mt-4 bg-baseblue-900/60 px-4 py-2 rounded-full border border-white/20"></p>
+        </div>
+    </div>
+
+    <!-- Notification Toast Container -->
     <div id="toast" class="fixed bottom-6 right-6 z-50 hidden bg-baseblue-900/95 backdrop-blur-md text-white px-6 py-4 rounded-2xl shadow-xl border border-pantone-325/50 flex items-center gap-3">
         <i class="fa-solid fa-circle-check text-pantone-325 text-xl"></i>
         <span id="toast-message" class="text-xs sm:text-sm font-medium">성공적으로 접수되었습니다!</span>
     </div>
 
     <script>
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
+        // Toggle mobile navigation menu
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
                 mobileMenu.classList.toggle('hidden');
-            });
+            }
         }
 
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        }
+
+        // Open application modal
         function openApplyModal(programName) {
             const modal = document.getElementById('apply-modal');
             const modalCard = document.getElementById('modal-card');
@@ -925,6 +1010,7 @@
             }
         }
 
+        // Close application modal
         function closeApplyModal() {
             const modal = document.getElementById('apply-modal');
             const modalCard = document.getElementById('modal-card');
@@ -938,6 +1024,27 @@
             }
         }
 
+        // Image Lightbox preview modal functions
+        function openLightbox(src, caption) {
+            const lightbox = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+
+            if (lightbox && lightboxImg) {
+                lightboxImg.src = src;
+                if (lightboxCaption) lightboxCaption.innerText = caption || '이미지 크게 보기';
+                lightbox.classList.remove('hidden');
+            }
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox-modal');
+            if (lightbox) {
+                lightbox.classList.add('hidden');
+            }
+        }
+
+        // Toast notification system
         function showToast(message) {
             const toast = document.getElementById('toast');
             const toastMessage = document.getElementById('toast-message');
@@ -948,14 +1055,34 @@
                 toast.classList.remove('hidden');
                 setTimeout(() => {
                     toast.classList.add('hidden');
-                }, 3000);
+                }, 3500);
             }
         }
 
+        // Modal Form Submit handler
         function handleModalFormSubmit(event) {
             event.preventDefault();
             closeApplyModal();
             showToast('성공적으로 접수되었습니다! 곧 안내 문자가 발송됩니다.');
+        }
+
+        // FAQ accordion toggle logic
+        function toggleFaq(id) {
+            const answer = document.getElementById(`faq-answer-${id}`);
+            const icon = document.getElementById(`faq-icon-${id}`);
+
+            if (answer && icon) {
+                const isHidden = answer.classList.contains('hidden');
+                
+                // Close all FAQ answers first
+                document.querySelectorAll('[id^="faq-answer-"]').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('[id^="faq-icon-"]').forEach(el => el.classList.remove('rotate-180'));
+
+                if (isHidden) {
+                    answer.classList.remove('hidden');
+                    icon.classList.add('rotate-180');
+                }
+            }
         }
     </script>
 </body>
